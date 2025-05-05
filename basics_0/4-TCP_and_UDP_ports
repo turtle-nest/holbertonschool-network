@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
+# Displays all listening TCP and UDP ports with the PID/program name
 
-ss -tulnp
+sudo netstat -tulpen
