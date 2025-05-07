@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-# displays all active IPv4 IPs on the machine it’s executed on
+# Displays all active IPv4 IPs on the machine
 
-ifconfig | grep flags
+ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | grep -v '^169\.254\.' | sort -u
