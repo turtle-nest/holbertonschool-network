@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
 # Displays all active IPv4 IPs on the machine
 
-ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | grep -v '^169\.254\.' | sort -u
+if command -v ip > /dev/null 2>&1; then
+    ip -4 addr show | awk '/inet / {print $2}' | cut -d/ -f1
+elif command -v ifconfig > /dev/null 2>&1; then
+    ifconfig | awk '/inet / && $2 != "127.0.0.1" {print $2}'
+    echo "127.0.0.1"
+else
+    echo "Neither ip nor ifconfig found" >&2
+    exit 1
+fi
