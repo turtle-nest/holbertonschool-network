@@ -1,12 +1,4 @@
 #!/usr/bin/env bash
-# Configures an Ubuntu server with the below requirements
+# Overwrites /etc/hosts to point localhost to 127.0.0.2 and facebook.com to 8.8.8.8
 
-# Edit or add entries
-sudo sed -i 's/^127\.0\.0\.1\s\+localhost/127.0.0.2\tlocalhost/' /etc/hosts
-
-# Add facebook.com to the end (or replace if it already exists)
-if grep -q "facebook.com" /etc/hosts; then
-    sudo sed -i 's/^.*facebook.com$/8.8.8.8\tfacebook.com/' /etc/hosts
-else
-    echo -e "8.8.8.8\tfacebook.com" | sudo tee -a /etc/hosts > /dev/null
-fi
+echo -e "127.0.0.2\tlocalhost\n8.8.8.8\tfacebook.com" | sudo tee /etc/hosts > /dev/null
